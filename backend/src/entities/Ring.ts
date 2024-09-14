@@ -1,7 +1,8 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../database";
+import { RingAttributes } from "../@types/ring";
 
-class Ring extends Model {
+class Ring extends Model<RingAttributes> implements RingAttributes {
   public id!: number;
   public name!: string;
   public power!: string;
