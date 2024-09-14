@@ -10,15 +10,15 @@ class RingRepository {
     return await Ring.findAll();
   }
 
-  async findById(id: number) {
+  async findById(id: string) {
     return await Ring.findByPk(id);
   }
 
-  async update(id: number, data: RingAttributes) {
+  async update(id: string, data: RingAttributes) {
     return await Ring.update(data, { where: { id } });
   }
 
-  async delete(id: number) {
+  async delete(id: string) {
     return await Ring.destroy({ where: { id } });
   }
 

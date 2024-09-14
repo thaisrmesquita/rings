@@ -30,11 +30,15 @@ class RingService {
     return await RingRepository.findAll();
   }
 
-  async update(id: number, data: any) {
+  async update(id: string, data: RingAttributes) {
     return await RingRepository.update(id, data);
   }
 
-  async delete(id: number) {
+  async findById(id: string) {
+    return await RingRepository.findById(id);
+  }
+
+  async delete(id: string) {
     return await RingRepository.delete(id);
   }
 }

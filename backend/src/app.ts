@@ -1,8 +1,11 @@
 import express from "express";
 import sequelize from "./database";
+import ringRoutes from "./routes/ringRoutes";
 
 const app = express();
 app.use(express.json());
+
+app.use("/api/v1", ringRoutes);
 
 sequelize.sync().then(() => {
   app.listen(3000, () => {

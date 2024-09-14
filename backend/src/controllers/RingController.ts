@@ -20,15 +20,21 @@ class RingController {
     return res.json(rings);
   }
 
+  async findById(req: Request, res: Response) {
+    const { id } = req.params;
+    const rings = await RingService.findById(id);
+    return res.json(rings);
+  }
+
   async update(req: Request, res: Response) {
     const { id } = req.params;
-    await RingService.update(Number(id), req.body);
+    await RingService.update(id, req.body);
     return res.status(204).send();
   }
 
   async delete(req: Request, res: Response) {
     const { id } = req.params;
-    await RingService.delete(Number(id));
+    await RingService.delete(id);
     return res.status(204).send();
   }
 }
