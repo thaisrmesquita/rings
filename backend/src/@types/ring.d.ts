@@ -3,6 +3,6 @@ export interface RingAttributes {
   name: string;
   power: string;
   warrior: string;
-  forgedBy: string;
+  forgedBy: "Elves" | "Dwarves" | "Men" | "Sauron";
   image: string;
 }

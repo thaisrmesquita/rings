@@ -7,7 +7,7 @@ class Ring extends Model<RingAttributes> implements RingAttributes {
   public name!: string;
   public power!: string;
   public warrior!: string;
-  public forgedBy!: string;
+  public forgedBy!: "Elves" | "Dwarves" | "Men" | "Sauron";
   public image!: string;
 }
 
