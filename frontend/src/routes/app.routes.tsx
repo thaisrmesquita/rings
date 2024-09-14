@@ -7,7 +7,7 @@ export function AppRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/create" element={<Form />} />
-      <Route path="/edit/:id" element={<Form />} />
+      <Route path="/edit/:ringId" element={<Form />} />
     </Routes>
   );
 }
