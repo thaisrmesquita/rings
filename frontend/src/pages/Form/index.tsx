@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useRings } from "../../hooks/useRings";
 
 export const ringSchema = z.object({
   name: z.string().min(1, { message: "O nome é obrigatório" }),
@@ -19,6 +20,7 @@ export const ringSchema = z.object({
 type RingFormData = z.infer<typeof ringSchema>;
 
 export function Form() {
+  const { rings, addRing, updateRing } = useRings();
   const { ringId } = useParams();
   const {
     register,
@@ -30,16 +32,29 @@ export function Form() {
   });
 
   const onSubmit = (data: RingFormData) => {
-    console.log(data);
+    if (ringId) {
+      updateRing(Number(ringId), data);
+      return;
+    }
+    addRing(data);
   };
 
   useEffect(() => {
     if (ringId) {
-      console.log("editar");
-      return;
+      const ring = rings.find((ring) => ring.id === Number(ringId));
+
+      if (ring) {
+        setValue("name", ring.name);
+        setValue("power", ring.power);
+        setValue("carrier", ring.carrier);
+        setValue(
+          "forgedBy",
+          ring.forgedBy as "Elves" | "Dwarves" | "Men" | "Sauron"
+        );
+        setValue("image", ring.image);
+      }
     }
-    console.log("criar");
-  }, [ringId]);
+  }, [ringId, rings, setValue]);
 
   return (
     <>
