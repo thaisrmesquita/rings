@@ -1,3 +1,4 @@
+import React from "react";
 import * as S from "./styles";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -5,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useRings } from "../../hooks/useRings";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const ringSchema = z.object({
@@ -20,9 +21,14 @@ export const ringSchema = z.object({
 
 type RingFormData = z.infer<typeof ringSchema>;
 
-export function RingForm() {
+interface RingFormProps {
+  idEdit?: number | null;
+  closeModal?: () => void;
+}
+
+export function RingForm({ idEdit, closeModal }: RingFormProps) {
   const { rings, addRing, updateRing } = useRings();
-  const { ringId } = useParams();
+  const { id } = useParams();
   const {
     register,
     handleSubmit,
@@ -32,10 +38,13 @@ export function RingForm() {
     resolver: zodResolver(ringSchema),
   });
 
+  const ringId = idEdit || id;
+
   const onSubmit = (data: RingFormData) => {
     console.log("🚀 ~ onSubmit ~ data:", data);
     if (ringId) {
       updateRing(Number(ringId), data);
+      if (closeModal) closeModal();
       return;
     }
     addRing(data);
