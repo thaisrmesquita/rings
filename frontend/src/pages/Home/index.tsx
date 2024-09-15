@@ -1,4 +1,5 @@
 import { Menu } from "../../components/Menu";
+import { RingCarousel } from "../../components/RingCarousel";
 import { useRings } from "../../hooks/useRings";
 import * as S from "./styles";
 
@@ -9,7 +10,7 @@ export function Home() {
     <>
       <Menu />
       <S.Container>
-        <S.Title>Home Page</S.Title>
+        <RingCarousel />
       </S.Container>
     </>
   );

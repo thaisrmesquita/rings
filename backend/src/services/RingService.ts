@@ -8,15 +8,14 @@ interface MaxRings {
   Sauron: number;
 }
 
+const maxRings: MaxRings = {
+  Elves: 3,
+  Dwarves: 7,
+  Men: 9,
+  Sauron: 1,
+};
 class RingService {
   async create(data: RingAttributes) {
-    const maxRings: MaxRings = {
-      Elves: 3,
-      Dwarves: 7,
-      Men: 9,
-      Sauron: 1,
-    };
-
     const count = await RingRepository.countRingsByForjadoPor(data.forgedBy);
 
     if (count >= maxRings[data.forgedBy]) {
@@ -31,6 +30,12 @@ class RingService {
   }
 
   async update(id: string, data: RingAttributes) {
+    const count = await RingRepository.countRingsByForjadoPor(data.forgedBy);
+
+    if (count >= maxRings[data.forgedBy]) {
+      throw new Error(`Não é possível criar mais anéis para ${data.forgedBy}.`);
+    }
+
     return await RingRepository.update(id, data);
   }
 
